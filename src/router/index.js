@@ -8,17 +8,23 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    beforeEnter: guardRoute,
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    path: '/login',
+    name: 'Login',
     component: function () {
-      return import(/* webpackChunkName: "about" */ '../views/About.vue')
+      return import('../views/Login.vue')
     }
+  },
+  {
+    path: '/favorites',
+    name: 'Favorites',
+    component: function () {
+      return import('../views/Favorites.vue')
+    },
+    beforeEnter: guardRoute,
   }
 ]
 
@@ -27,5 +33,15 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+function guardRoute (to, from, next) {
+  const auth = router.app.$options.store.getters.IS_AUTHENTICATED
+
+  if (!auth) {
+    next({name: 'Login'})
+    return
+  }
+  next()
+}
 
 export default router
