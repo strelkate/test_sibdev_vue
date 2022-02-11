@@ -1,7 +1,9 @@
 <template>
   <div class="login">
     <div class="login__card">
-      <img class="login__logo" src="../assets/sibdev-logo.svg" alt="Image: Login">
+      <svg class="login__logo">
+        <use xlink:href="../assets/sprite.svg#sibdev-logo"></use>
+      </svg>
       <h3 class="login__title">Вход</h3>
       <div class="login__form">
         <div class="login__label">Логин</div>
